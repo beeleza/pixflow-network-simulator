@@ -1,3 +1,24 @@
 spring:
   application:
     name: pixflow-network-simulator
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: pixflow-network-simulator
+      auto-offset-reset: earliest
+
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: com.beelza.pixflow_network_simulator.adapter.in
+        spring.json.use.type.headers: false
+        spring.json.value.default.type: com.beelza.pixflow_network_simulator.adapter.in.PixTransactionMessageRequest
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
